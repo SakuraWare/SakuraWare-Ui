@@ -1,5 +1,5 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SakuraWare/SakuraWare-Ui/refs/heads/main/Sakura%20WareUi2'))()
-local Window = UILib.new(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, game.Players.LocalPlayer.Name, "Buyer")
+local Window = UILib.new("Sakura Ware", game.Players.LocalPlayer.UserId, "Buyer")
 local Category1 = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
 local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
 local Section1 = SubButton1:Section("Section", "Left")
