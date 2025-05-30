@@ -1,62 +1,78 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SakuraWare/SakuraWare-Ui/refs/heads/main/Sakura%20WareUi2'))()
 local MarketplaceService = game:GetService("MarketplaceService")
+local Players = game:GetService("Players")
 local placeId = game.PlaceId
 
+local function safeColor(r, g, b)
+    return Color3.new(r / 255, g / 255, b / 255)
+end
+
+local function createUI(gameName)
+    local Window = UILib.new(gameName, Players.LocalPlayer.Name, "Member")
+
+    local Category1 = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
+    local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
+    local Section1 = SubButton1:Section("Section", "Left")
+
+    Section1:Button({
+        Title = "Kill All",
+        ButtonName = "KILL!!",
+        Description = "kills everyone",
+    }, function(value)
+        print(value)
+    end)
+
+    Section1:Toggle({
+        Title = "Auto Farm Coins",
+        Description = "Optional Description here",
+        Default = false
+    }, function(value)
+        print(value)
+    end)
+
+    Section1:Slider({
+        Title = "Walkspeed",
+        Description = "",
+        Default = 16,
+        Min = 0,
+        Max = 120
+    }, function(value)
+        print(value)
+    end)
+
+    Section1:ColorPicker({
+        Title = "Colorpicker",
+        Description = "",
+        Default = safeColor(255, 0, 0), -- FIXED: valid Color3 values between 0–1
+    }, function(value)
+        print(value)
+    end)
+
+    Section1:Textbox({
+        Title = "Damage Multiplier",
+        Description = "",
+        Default = "",
+    }, function(value)
+        print(value)
+    end)
+
+    Section1:Keybind({
+        Title = "Kill All",
+        Description = "",
+        Default = Enum.KeyCode.Q,
+    }, function(value)
+        print(value)
+    end)
+end
+
+-- Sicherer Abruf des Spielnamens
 local success, info = pcall(function()
     return MarketplaceService:GetProductInfo(placeId)
 end)
 
-if success then
-    local gameName = info.Name
-    local Window = UILib.new(gameName, game.Players.LocalPlayer.Name, "Member")
+if success and info and info.Name then
+    createUI(info.Name)
 else
-    warn("Game name could not be loaded.")
+    warn("Spielname konnte nicht geladen werden, fallback auf 'Sakura Ware'")
+    createUI("Sakura Ware")
 end
-
-local Category1 = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
-local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
-local Section1 = SubButton1:Section("Section", "Left")
-Section1:Button({
-    Title = "Kill All",
-    ButtonName = "KILL!!",
-    Description = "kills everyone",
-    }, function(value)
-    print(value)
-end)
-Section1:Toggle({
-    Title = "Auto Farm Coins",
-    Description = "Optional Description here",
-    Default = false
-    }, function(value)
-    print(value)
-end)
-Section1:Slider({
-    Title = "Walkspeed",
-    Description = "",
-    Default = 16,
-    Min = 0,
-    Max = 120
-    }, function(value)
-    print(value)
-end)
-Section1:ColorPicker({
-    Title = "Colorpicker",
-    Description = "",
-    Default = Color3.new(255,0,0),
-    }, function(value)
-    print(value)
-end)
-Section1:Textbox({
-    Title = "Damage Multiplier",
-    Description = "",
-    Default = "",
-    }, function(value)
-    print(value)
-end)
-Section1:Keybind({
-    Title = "Kill All",
-    Description = "",
-    Default = Enum.KeyCode.Q,
-    }, function(value)
-    print(value)
-end)
