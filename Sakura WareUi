@@ -12,8 +12,9 @@ local function createUI(gameName)
 
     local Category1 = Window:Category("Auto Farm", "http://www.roblox.com/asset/?id=8395621517")
     local Category2 = Window:Category("Dupe Pass", "http://www.roblox.com/asset/?id=8395621517")
-    local Category3 = Window:Category("Player Settings", "http://www.roblox.com/asset/?id=8395621517")
-    local Category4 = Window:Category("Ui Settings", "http://www.roblox.com/asset/?id=8395621517")
+    local Category3 = Window:Category("Settings", "http://www.roblox.com/asset/?id=8395621517")
+    local Category4 = Window:Category("Credits", "http://www.roblox.com/asset/?id=8395621517")
+
     local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
     local Section1 = SubButton1:Section("Section", "Left")
 
