@@ -1,82 +1,87 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SakuraWare/SakuraWare-Ui/refs/heads/main/Sakura%20WareUi2'))()
-local MarketplaceService = game:GetService("MarketplaceService")
-local Players = game:GetService("Players")
-local placeId = game.PlaceId
+local Window = UILib.new(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, game.Players.LocalPlayer.Name, "Buyer")
+local Category1 = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
+local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
+local Section1 = SubButton1:Section("Section", "Left")
 
-local function safeColor(r, g, b)
-    return Color3.new(r / 255, g / 255, b / 255)
-end
+Section1:Toggle({
+    Title = "Auto Train",
+    Description = "Fast Muscle gain",
+    Default = false
+}, function(value)
+    _G.AutoFarm = value
+    
+    while _G.AutoFarm do
+        local args = {
+            [1] = true
+        }
 
-local function createUI(gameName)
-    local Window = UILib.new(gameName, Players.LocalPlayer.Name, "Member")
-
-    local Category1 = Window:Category("Auto Farm", "http://www.roblox.com/asset/?id=8395621517")
-    local Category2 = Window:Category("Dupe Pass", "http://www.roblox.com/asset/?id=8395621517")
-    local Category3 = Window:Category("Settings", "http://www.roblox.com/asset/?id=8395621517")
-    local Category4 = Window:Category("Credits", "http://www.roblox.com/asset/?id=8395621517")
-
-    local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
-    local Section1 = SubButton1:Section("Section", "Left")
-
-    Section1:Button({
-        Title = "Kill All",
-        ButtonName = "KILL!!",
-        Description = "kills everyone",
-    }, function(value)
-        print(value)
-    end)
-
-    Section1:Toggle({
-        Title = "Auto Farm Coins",
-        Description = "Optional Description here",
-        Default = false
-    }, function(value)
-        print(value)
-    end)
-
-    Section1:Slider({
-        Title = "Walkspeed",
-        Description = "",
-        Default = 16,
-        Min = 0,
-        Max = 120
-    }, function(value)
-        print(value)
-    end)
-
-    Section1:ColorPicker({
-        Title = "Colorpicker",
-        Description = "",
-        Default = safeColor(255, 0, 0), -- FIXED: valid Color3 values between 0–1
-    }, function(value)
-        print(value)
-    end)
-
-    Section1:Textbox({
-        Title = "Damage Multiplier",
-        Description = "",
-        Default = "",
-    }, function(value)
-        print(value)
-    end)
-
-    Section1:Keybind({
-        Title = "Kill All",
-        Description = "",
-        Default = Enum.KeyCode.Q,
-    }, function(value)
-        print(value)
-    end)
-end
-
--- Sicherer Abruf des Spielnamens
-local success, info = pcall(function()
-    return MarketplaceService:GetProductInfo(placeId)
+        game:GetService("ReplicatedStorage").Remote.Event.Train:FindFirstChild("[C-S]PlayerTryClick"):FireServer(unpack(args))
+        
+        wait(0.1) -- Wartezeit, um Spam zu vermeiden
+    end
 end)
 
-if success and info and info.Name then
-    createUI(info.Name)
-else
-    warn("Spielname konnte nicht geladen werden, fallback auf 'Sakura Ware'")
-    createUI("Sakura Ware")
-end
+Section1:Toggle({
+    Title = "Auto Eat",
+    Description = "Fast Energy gain",
+    Default = false
+}, function(value)
+    _G.AutoFarm = value
+    
+    while _G.AutoFarm do
+        game:GetService("ReplicatedStorage").Remote.Event.Food:FindFirstChild("[C-S]TryEatFood"):FireServer()
+        
+        wait(0.1) -- Wartezeit, um Spam zu vermeiden
+    end
+end)
+
+Section1:Toggle({
+    Title = "Auto Money",
+    Description = "Fast Money gain",
+    Default = false
+}, function(value)
+    _G.AutoFight = value
+
+    while _G.AutoFight do
+        for i = 1, 30 do
+            local args = { "Fight" .. i }
+            game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Game"):WaitForChild("[C-S]PlayerEnd"):FireServer(unpack(args))
+        end
+        
+        wait(0.1) -- Kleine Verzögerung zur Optimierung
+    end
+end)
+
+
+
+Section1:Slider({
+    Title = "Walkspeed",
+    Description = "",
+    Default = 16,
+    Min = 0,
+    Max = 120
+    }, function(value)
+    print(value)
+end)
+Section1:ColorPicker({
+    Title = "Colorpicker",
+    Description = "",
+    Default = Color3.new(255,0,0),
+    }, function(value)
+    print(value)
+end)
+Section1:Textbox({
+    Title = "Damage Multiplier",
+    Description = "",
+    Default = "",
+    }, function(value)
+    print(value)
+end)
+Section1:Keybind({
+    Title = "Kill All",
+    Description = "",
+    Default = Enum.KeyCode.Q,
+    }, function(value)
+    print(value)
+end)
