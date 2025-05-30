@@ -12,6 +12,7 @@ if success then
 else
     warn("Game name could not be loaded.")
 end
+
 local Category1 = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
 local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
 local Section1 = SubButton1:Section("Section", "Left")
