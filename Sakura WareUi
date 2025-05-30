@@ -1,9 +1,10 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SakuraWare/SakuraWare-Ui/refs/heads/main/Sakura%20WareUi2'))()
-local Window = UILib.new("Sakura Ware", game.Players.LocalPlayer.UserId, "Buyer")
-local Category1 = Window:Category("Main", "http://www.roblox.com/asset/?id=8395621517")
-local SubButton1 = Category1:Button("Combat", "http://www.roblox.com/asset/?id=8395747586")
-local Section1 = SubButton1:Section("Section", "Left")
+local Window = UILib.new("Sakura Ware", game.Players.LocalPlayer.UserId, "Member")
 
+local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=8395621517")
+local SubButton1 = Category1:Button("Auto Farm", "http://www.roblox.com/asset/?id=8395747586")
+
+local Section1 = SubButton1:Section("Auto Train", "Left")
 Section1:Toggle({
     Title = "Auto Train",
     Description = "Fast Muscle gain",
@@ -22,6 +23,7 @@ Section1:Toggle({
     end
 end)
 
+local Section1 = SubButton1:Section("Auto Eat", "Left")
 Section1:Toggle({
     Title = "Auto Eat",
     Description = "Fast Energy gain",
@@ -36,6 +38,7 @@ Section1:Toggle({
     end
 end)
 
+local Section1 = SubButton1:Section("Auto Money", "Left")
 Section1:Toggle({
     Title = "Auto Money",
     Description = "Fast Money gain",
@@ -53,7 +56,7 @@ Section1:Toggle({
     end
 end)
 
-
+local Category2 = Window:Category("Dupe Rewards", "http://www.roblox.com/asset/?id=8395621517")
 
 Section1:Slider({
     Title = "Walkspeed",
