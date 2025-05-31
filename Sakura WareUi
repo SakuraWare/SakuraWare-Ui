@@ -59,29 +59,13 @@ SectionMoney:Toggle({
 end)
 
 local SectionHatch = SubButton2:Section("Auto Hatch", "Left")
-local HatchEggName = "Egg1"
 local HatchAmount = 1
 _G.AutoHatch = false
 
--- Dropdown for selecting egg
-SectionHatch:Dropdown({
-    Title = "Select Egg",
-    Description = "Choose between Egg1 and Egg15",
-    Values = {
-        "Egg1", "Egg2", "Egg3", "Egg4", "Egg5",
-        "Egg6", "Egg7", "Egg8", "Egg9", "Egg10",
-        "Egg11", "Egg12", "Egg13", "Egg14", "Egg15"
-    },
-    Default = "Egg1"
-}, function(selected)
-    HatchEggName = selected
-    print("✅ Selected Egg:", HatchEggName)
-end)
-
--- Textbox for hatch amount
+-- Textbox für Hatch-Anzahl
 SectionHatch:Textbox({
     Title = "Hatch Amount",
-    Description = "Number from 1 to 25",
+    Description = "Number of eggs to hatch (1–25)",
     Default = "1",
 }, function(value)
     local num = tonumber(value)
@@ -89,14 +73,32 @@ SectionHatch:Textbox({
         HatchAmount = num
         print("✅ Hatch amount set to:", HatchAmount)
     else
-        warn("❌ Invalid input! Please enter a number from 1 to 25.")
+        warn("❌ Invalid value – please enter a number from 1 to 25.")
     end
 end)
 
--- Toggle for auto hatch
+-- Funktion zum Finden des nächstgelegenen Eis
+local function findNearestEgg()
+    local nearestEgg = nil
+    local shortestDistance = math.huge
+
+    for _, egg in pairs(workspace:GetChildren()) do
+        if egg:IsA("Part") and egg:FindFirstChild("Egg") then
+            local distance = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - egg.Position).Magnitude
+            if distance < shortestDistance then
+                shortestDistance = distance
+                nearestEgg = egg
+            end
+        end
+    end
+    
+    return nearestEgg
+end
+
+-- Toggle für Auto Hatch
 SectionHatch:Toggle({
     Title = "Auto Hatch",
-    Description = "Automatically hatch eggs",
+    Description = "Automatically hatches the nearest egg",
     Default = false
 }, function(toggle)
     _G.AutoHatch = toggle
@@ -105,20 +107,25 @@ SectionHatch:Toggle({
         spawn(function()
             while _G.AutoHatch do
                 local success, err = pcall(function()
-                    local args = {
-                        HatchEggName,
-                        HatchAmount
-                    }
+                    local nearestEgg = findNearestEgg()
+                    if nearestEgg then
+                        local args = {
+                            nearestEgg.Name, 
+                            HatchAmount
+                        }
 
-                    game:GetService("ReplicatedStorage")
-                        :WaitForChild("Remote")
-                        :WaitForChild("Function")
-                        :WaitForChild("Luck")
-                        :WaitForChild("[C-S]DoLuck"):InvokeServer(unpack(args))
+                        game:GetService("ReplicatedStorage")
+                            :WaitForChild("Remote")
+                            :WaitForChild("Function")
+                            :WaitForChild("Luck")
+                            :WaitForChild("[C-S]DoLuck"):InvokeServer(unpack(args))
+                    else
+                        warn("❌ No nearby eggs found.")
+                    end
                 end)
 
                 if not success then
-                    warn("❌ Hatch failed:", err)
+                    warn("❌ Error while hatching:", err)
                 end
 
                 wait(1)
@@ -126,8 +133,6 @@ SectionHatch:Toggle({
         end)
     end
 end)
-
-
 
 
 
