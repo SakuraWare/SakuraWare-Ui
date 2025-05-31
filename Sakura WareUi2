@@ -1401,7 +1401,7 @@ local function getObjGen()
             Gui.Fill_2.Size = UDim2.new(1, 0, 1, 0)
             Gui.Fill_2.ZIndex = 120
             Gui.Fill_2.Image = "rbxassetid://7881302920"
-            Gui.Fill_2.ImageColor3 = Color3.fromRGB(27, 27, 27)
+            Gui.Fill_2.ImageColor3 = Color3.fromRGB(15, 5, 24)
             Gui.Fill_2.ScaleType = Enum.ScaleType.Slice
             Gui.Fill_2.SliceCenter = Rect.new(512, 512, 512, 512)
             Gui.Fill_2.SliceScale = 0.020
@@ -1422,7 +1422,7 @@ local function getObjGen()
             Gui.Tab2.Size = UDim2.new(0.850000024, 0, 1, 0)
             Gui.Tab2.ZIndex = 120
             Gui.Tab2.Image = "rbxassetid://7881302920"
-            Gui.Tab2.ImageColor3 = Color3.fromRGB(27, 27, 27)
+            Gui.Tab2.ImageColor3 = Color3.fromRGB(15, 5, 24)
             Gui.Tab2.ScaleType = Enum.ScaleType.Slice
             Gui.Tab2.SliceCenter = Rect.new(512, 512, 512, 512)
             Gui.Tab2.SliceScale = 0.020
