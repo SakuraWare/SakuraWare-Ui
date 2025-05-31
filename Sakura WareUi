@@ -339,3 +339,6 @@ Section3:Textbox({
     end
 end)
 
+local Category3 = Window:Category("Settings", "http://www.roblox.com/asset/?id=8395621517")
+
+
