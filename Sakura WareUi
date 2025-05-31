@@ -1,5 +1,6 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SakuraWare/SakuraWare-Ui/refs/heads/main/Sakura%20WareUi2'))()
-local Window = UILib.new("Sakura Ware", game.Players.LocalPlayer.UserId, "Member")
+local Window = UILib.new(game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name, game.Players.LocalPlayer.Name, "Member")
+
 
 -- Kategorie: Farming
 local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=8395621517")
