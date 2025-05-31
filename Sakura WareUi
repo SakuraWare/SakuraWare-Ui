@@ -3,8 +3,8 @@ local Window = UILib.new(game:GetService("MarketplaceService"):GetProductInfo(ga
 
 
 -- Kategorie: Farming
-local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=8395621517")
-local SubButton1 = Category1:Button("Auto Farm", "http://www.roblox.com/asset/?id=8395747586")
+local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=10723407389")
+local SubButton1 = Category1:Button("Auto Farm", "http://www.roblox.com/asset/?id=10709811110")
 
 -- Abschnitt: Auto Train
 local SectionTrain = SubButton1:Section("Auto Train", "Left")
@@ -58,7 +58,7 @@ SectionMoney:Toggle({
     end
 end)
 
-local SubButton2 = Category1:Button("Worlds", "http://www.roblox.com/asset/?id=8395747586")
+local SubButton2 = Category1:Button("Worlds", "http://www.roblox.com/asset/?id=10723404337")
 local Section1 = SubButton2:Section("Worlds", "Left")
 
 Section1:Button({
@@ -141,11 +141,11 @@ Section2:Button({
 end)
 
 -- Kategorie: Dupe Rewards
-local Category2 = Window:Category("Dupe Rewards", "http://www.roblox.com/asset/?id=8395621517")
+local Category2 = Window:Category("Dupe Rewards", "http://www.roblox.com/asset/?id=10734909540")
 
-local SubButtonDupe1 = Category2:Button("Dupe Forever Pack", "http://www.roblox.com/asset/?id=8395747586")
+local SubButtonDupe1 = Category2:Button("Dupe Forever Pack", "http://www.roblox.com/asset/?id=10723415766")
 local SubButtonDupe2 = Category2:Button("Dupe Event Pass", "http://www.roblox.com/asset/?id=8395747586")
-local SubButtonDupe3 = Category2:Button("Dupe Season Pass", "http://www.roblox.com/asset/?id=8395747586")
+local SubButtonDupe3 = Category2:Button("Dupe Season Pass", "http://www.roblox.com/asset/?id=10723434711")
 
 
 local Section1 = SubButtonDupe1:Section("Forever Pack Dupe", "Left")
@@ -413,8 +413,8 @@ Section3:Textbox({
     end
 end)
 
-local Category3 = Window:Category("Settings", "http://www.roblox.com/asset/?id=8395621517")
-local SubButton1 = Category3:Button("Player Settings", "http://www.roblox.com/asset/?id=8395747586")
+local Category3 = Window:Category("Settings", "http://www.roblox.com/asset/?id=10734950309")
+local SubButton1 = Category3:Button("Player Settings", "http://www.roblox.com/asset/?id=8395621517")
 local Section1 = SubButton1:Section("Player Settings", "Left")
 
 Section1:Slider({
@@ -451,6 +451,4 @@ Section2:Button({
     }, function(value)
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
 end)
-
-local Category4 = Window:Category("Credits", "http://www.roblox.com/asset/?id=8395621517")
 
