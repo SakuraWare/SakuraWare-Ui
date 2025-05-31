@@ -4,6 +4,7 @@ local Window = UILib.new("Sakura Ware", game.Players.LocalPlayer.UserId, "Member
 -- Kategorie: Farming
 local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=8395621517")
 local SubButton1 = Category1:Button("Auto Farm", "http://www.roblox.com/asset/?id=8395747586")
+local SubButton2 = Category1:Button("Auto Hatch", "http://www.roblox.com/asset/?id=8395747586")
 
 -- Abschnitt: Auto Train
 local SectionTrain = SubButton1:Section("Auto Train", "Left")
@@ -56,6 +57,79 @@ SectionMoney:Toggle({
         wait(0.1)
     end
 end)
+
+local SectionHatch = SubButton2:Section("Auto Hatch", "Left")
+local HatchEggName = "Egg1"
+local HatchAmount = 1
+_G.AutoHatch = false
+
+-- Dropdown for selecting egg
+SectionHatch:Dropdown({
+    Title = "Select Egg",
+    Description = "Choose between Egg1 and Egg15",
+    Values = {
+        "Egg1", "Egg2", "Egg3", "Egg4", "Egg5",
+        "Egg6", "Egg7", "Egg8", "Egg9", "Egg10",
+        "Egg11", "Egg12", "Egg13", "Egg14", "Egg15"
+    },
+    Default = "Egg1"
+}, function(selected)
+    HatchEggName = selected
+    print("✅ Selected Egg:", HatchEggName)
+end)
+
+-- Textbox for hatch amount
+SectionHatch:Textbox({
+    Title = "Hatch Amount",
+    Description = "Number from 1 to 25",
+    Default = "1",
+}, function(value)
+    local num = tonumber(value)
+    if num and num >= 1 and num <= 25 then
+        HatchAmount = num
+        print("✅ Hatch amount set to:", HatchAmount)
+    else
+        warn("❌ Invalid input! Please enter a number from 1 to 25.")
+    end
+end)
+
+-- Toggle for auto hatch
+SectionHatch:Toggle({
+    Title = "Auto Hatch",
+    Description = "Automatically hatch eggs",
+    Default = false
+}, function(toggle)
+    _G.AutoHatch = toggle
+
+    if toggle then
+        spawn(function()
+            while _G.AutoHatch do
+                local success, err = pcall(function()
+                    local args = {
+                        HatchEggName,
+                        HatchAmount
+                    }
+
+                    game:GetService("ReplicatedStorage")
+                        :WaitForChild("Remote")
+                        :WaitForChild("Function")
+                        :WaitForChild("Luck")
+                        :WaitForChild("[C-S]DoLuck"):InvokeServer(unpack(args))
+                end)
+
+                if not success then
+                    warn("❌ Hatch failed:", err)
+                end
+
+                wait(1)
+            end
+        end)
+    end
+end)
+
+
+
+
 
 -- Kategorie: Dupe Rewards
 local Category2 = Window:Category("Dupe Rewards", "http://www.roblox.com/asset/?id=8395621517")
@@ -326,7 +400,7 @@ Section3:Textbox({
         SeasonRewardID = num
         print("✅ Season Reward ID set to:", SeasonRewardID)
     else
-        warn("❌ Ungültige Eingabe! Nur Zahlen von 1 bis 15 erlaubt.")
+        warn("❌ Invalid input! Please enter a number from 1 to 15.")
     end
 end)
 
