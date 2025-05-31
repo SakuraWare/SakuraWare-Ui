@@ -451,3 +451,6 @@ Section2:Button({
     }, function(value)
     loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
 end)
+
+local Category4 = Window:Category("Credits", "http://www.roblox.com/asset/?id=8395621517")
+
