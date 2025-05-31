@@ -585,7 +585,7 @@ local function getObjGen()
 
             Gui.HoverFrame_4.Name = "HoverFrame"
             Gui.HoverFrame_4.Parent = Gui.Keybind
-            Gui.HoverFrame_4.BackgroundColor3 = Color3.fromRGB(24, 8, 38)
+            Gui.HoverFrame_4.BackgroundColor3 = Color3.fromRGB(15, 5, 24)
             Gui.HoverFrame_4.BackgroundTransparency = 1.000
             Gui.HoverFrame_4.BorderSizePixel = 0
             Gui.HoverFrame_4.Size = UDim2.new(1, 0, 1, 0)
@@ -1225,7 +1225,7 @@ local function getObjGen()
             Gui.MainUI.Name = "MainUI"
             Gui.MainUI.Parent = Gui.Window
             Gui.MainUI.AnchorPoint = Vector2.new(0.5, 0.5)
-            Gui.MainUI.BackgroundColor3 = Color3.fromRGB(24, 8, 38)
+            Gui.MainUI.BackgroundColor3 = Color3.fromRGB(15, 5, 24)
             Gui.MainUI.Position = UDim2.new(0.5, 0, 0.5, 0)
             --Gui.MainUI.Size = UDim2.new(0.47, 0, 0.75, 0)
             Gui.MainUI.Size = UDim2.new(0, 851, 0, 488)
@@ -1466,7 +1466,7 @@ local function getObjGen()
             Gui.ColorPickerOverlay.ZIndex = 200
             Gui.ColorPickerOverlay.AutoButtonColor = false
             Gui.ColorPickerOverlay.Image = "rbxassetid://7880418493"
-            Gui.ColorPickerOverlay.ImageColor3 = Color3.fromRGB(24, 8, 38)
+            Gui.ColorPickerOverlay.ImageColor3 = Color3.fromRGB(15, 5, 24)
             Gui.ColorPickerOverlay.ImageTransparency = 1.000
             Gui.ColorPickerOverlay.ScaleType = Enum.ScaleType.Slice
             Gui.ColorPickerOverlay.SliceCenter = Rect.new(512, 512, 512, 512)
@@ -1920,7 +1920,7 @@ local function getObjGen()
 
             Gui.Shadow_3.Name = "Shadow"
             Gui.Shadow_3.Parent = Gui.Content_7
-            Gui.Shadow_3.BackgroundColor3 = Color3.fromRGB(24, 8, 38)
+            Gui.Shadow_3.BackgroundColor3 = Color3.fromRGB(15, 5, 24)
             Gui.Shadow_3.BorderSizePixel = 0
             Gui.Shadow_3.Position = UDim2.new(-0.0192201305, 0, 0, 0)
             Gui.Shadow_3.Size = UDim2.new(1.01922011, 0, 1, 0)
@@ -2083,7 +2083,7 @@ local function getObjGen()
 
             Gui.Border.Name = "Border"
             Gui.Border.Parent = Gui.Section
-            Gui.Border.BackgroundColor3 = Color3.fromRGB(24, 8, 38)
+            Gui.Border.BackgroundColor3 = Color3.fromRGB(15, 5, 24)
             Gui.Border.BorderSizePixel = 0
             Gui.Border.Size = UDim2.new(1, 0, 1, 0)
             Gui.Border.ZIndex = 107
