@@ -1,45 +1,47 @@
 local UILib = loadstring(game:HttpGet('https://raw.githubusercontent.com/SakuraWare/SakuraWare-Ui/refs/heads/main/Sakura%20WareUi2'))()
 local Window = UILib.new("Sakura Ware", game.Players.LocalPlayer.UserId, "Member")
 
+-- Kategorie: Farming
 local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=8395621517")
 local SubButton1 = Category1:Button("Auto Farm", "http://www.roblox.com/asset/?id=8395747586")
 
-local Section1 = SubButton1:Section("Auto Train", "Left")
-Section1:Toggle({
+-- Abschnitt: Auto Train
+local SectionTrain = SubButton1:Section("Auto Train", "Left")
+SectionTrain:Toggle({
     Title = "Auto Train",
     Description = "Fast Muscle gain",
     Default = false
 }, function(value)
-    _G.AutoFarm = value
-    
-    while _G.AutoFarm do
+    _G.AutoTrain = value
+
+    while _G.AutoTrain do
         local args = {
             [1] = true
         }
 
         game:GetService("ReplicatedStorage").Remote.Event.Train:FindFirstChild("[C-S]PlayerTryClick"):FireServer(unpack(args))
-        
-        wait(0.1) -- Wartezeit, um Spam zu vermeiden
+        wait(0.1)
     end
 end)
 
-local Section1 = SubButton1:Section("Auto Eat", "Left")
-Section1:Toggle({
+-- Abschnitt: Auto Eat
+local SectionEat = SubButton1:Section("Auto Eat", "Left")
+SectionEat:Toggle({
     Title = "Auto Eat",
     Description = "Fast Energy gain",
     Default = false
 }, function(value)
-    _G.AutoFarm = value
-    
-    while _G.AutoFarm do
+    _G.AutoEat = value
+
+    while _G.AutoEat do
         game:GetService("ReplicatedStorage").Remote.Event.Food:FindFirstChild("[C-S]TryEatFood"):FireServer()
-        
-        wait(0.1) -- Wartezeit, um Spam zu vermeiden
+        wait(0.1)
     end
 end)
 
-local Section1 = SubButton1:Section("Auto Money", "Left")
-Section1:Toggle({
+-- Abschnitt: Auto Money
+local SectionMoney = SubButton1:Section("Auto Money", "Left")
+SectionMoney:Toggle({
     Title = "Auto Money",
     Description = "Fast Money gain",
     Default = false
@@ -51,40 +53,280 @@ Section1:Toggle({
             local args = { "Fight" .. i }
             game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Event"):WaitForChild("Game"):WaitForChild("[C-S]PlayerEnd"):FireServer(unpack(args))
         end
-        
-        wait(0.1) -- Kleine Verzögerung zur Optimierung
+        wait(0.1)
     end
 end)
 
+-- Kategorie: Dupe Rewards
 local Category2 = Window:Category("Dupe Rewards", "http://www.roblox.com/asset/?id=8395621517")
 
-Section1:Slider({
-    Title = "Walkspeed",
-    Description = "",
-    Default = 16,
-    Min = 0,
-    Max = 120
-    }, function(value)
-    print(value)
+local SubButtonDupe1 = Category2:Button("Dupe Forever Pack", "http://www.roblox.com/asset/?id=8395747586")
+local SubButtonDupe2 = Category2:Button("Dupe Event Pass", "http://www.roblox.com/asset/?id=8395747586")
+local SubButtonDupe3 = Category2:Button("Dupe Season Pass", "http://www.roblox.com/asset/?id=8395747586")
+
+
+local Section1 = SubButtonDupe1:Section("Forever Pack Dupe", "Left")
+local DupeID = 1
+local _G = _G or {}
+_G.DupeItems = false
+
+Section1:Toggle({
+    Title = "Dupe Items",
+    Description = "Dupe Forever Pack",
+    Default = false
+}, function(toggle)
+    _G.DupeItems = toggle
+
+    if toggle then
+        spawn(function()
+            while _G.DupeItems do
+                local success, err = pcall(function()
+                    local remote = game:GetService("ReplicatedStorage")
+                        :WaitForChild("Remote")
+                        :WaitForChild("Event")
+                        :WaitForChild("ForverPack") -- ← überprüfe: eventuell Tippfehler
+                        :WaitForChild("[C-S]TryClaimForverPack")
+
+                    remote:FireServer(DupeID)
+                end)
+
+                if not success then
+                    warn("❌ Error:", err)
+                end
+
+                wait(0.1)
+            end
+        end)
+    end
 end)
-Section1:ColorPicker({
-    Title = "Colorpicker",
-    Description = "",
-    Default = Color3.new(255,0,0),
-    }, function(value)
-    print(value)
-end)
+
 Section1:Textbox({
-    Title = "Damage Multiplier",
-    Description = "",
-    Default = "",
-    }, function(value)
-    print(value)
+    Title = "Item ID",
+    Description = "Number from 1 to 200",
+    Default = "1",
+}, function(value)
+    local num = tonumber(value)
+    if num and num >= 1 and num <= 200 then
+        DupeID = num
+        print("✅ Item ID set to:", DupeID)
+    else
+        warn("❌ Invalid input! Please enter a number from 1 to 200.")
+    end
 end)
-Section1:Keybind({
-    Title = "Kill All",
-    Description = "",
-    Default = Enum.KeyCode.Q,
-    }, function(value)
-    print(value)
+
+local Section2 = SubButtonDupe2:Section("Event Reward Dupe", "Left")
+local EventRewardID = 1
+local _G = _G or {}
+_G.DupeEventRewards = false
+
+Section2:Toggle({
+    Title = "Dupe Rewards",
+    Description = "Dupe Event Pass",
+    Default = false
+}, function(toggle)
+    _G.DupeEventRewards = toggle
+
+    if toggle then
+        spawn(function()
+            while _G.DupeEventRewards do
+                local success, err = pcall(function()
+                    local remote = game:GetService("ReplicatedStorage")
+                        :WaitForChild("Remote")
+                        :WaitForChild("Event")
+                        :WaitForChild("EventSeason")
+                        :WaitForChild("[C-S]TryGetReward")
+
+                    local args = {
+                        [1] = "1",               -- feste ID
+                        [2] = EventRewardID      -- variable ID
+                    }
+
+                    remote:FireServer(unpack(args))
+                end)
+
+                if not success then
+                    warn("❌ Error:", err)
+                end
+
+                wait(0.1)
+            end
+        end)
+    end
 end)
+
+Section2:Textbox({
+    Title = "Reward ID",
+    Description = "Number from 1 to 15",
+    Default = "1",
+}, function(value)
+    local num = tonumber(value)
+    if num and num >= 1 and num <= 15 then
+        EventRewardID = num
+        print("✅ Event Reward ID set to:", EventRewardID)
+    else
+        warn("❌ Invalid input! Please enter a number from 1 to 15.")
+    end
+end)
+
+local Section2 = SubButtonDupe2:Section("Event Premium Dupe", "Left")
+local EventRewardID = 1
+local _G = _G or {}
+_G.DupeEventRewards = false
+
+Section2:Toggle({
+    Title = "Dupe Rewards",
+    Description = "Premium Pass required",
+    Default = false
+}, function(toggle)
+    _G.DupeEventRewards = toggle
+
+    if toggle then
+        spawn(function()
+            while _G.DupeEventRewards do
+                local success, err = pcall(function()
+                    local remote = game:GetService("ReplicatedStorage")
+                        :WaitForChild("Remote")
+                        :WaitForChild("Event")
+                        :WaitForChild("EventSeason")
+                        :WaitForChild("[C-S]TryGetReward")
+
+                    local args = {
+                        [1] = "2",               -- feste ID
+                        [2] = EventRewardID      -- variable ID
+                    }
+
+                    remote:FireServer(unpack(args))
+                end)
+
+                if not success then
+                    warn("❌ Error:", err)
+                end
+
+                wait(0.1)
+            end
+        end)
+    end
+end)
+
+Section2:Textbox({
+    Title = "Reward ID",
+    Description = "Number from 1 to 15",
+    Default = "1",
+}, function(value)
+    local num = tonumber(value)
+    if num and num >= 1 and num <= 15 then
+        EventRewardID = num
+        print("✅ Event Reward ID set to:", EventRewardID)
+    else
+        warn("❌ Invalid input! Please enter a number from 1 to 15.")
+    end
+end)
+
+local Section3 = SubButtonDupe3:Section("Season Pass Dupe", "Left")
+local SeasonRewardID = 1
+local _G = _G or {}
+_G.DupeSeasonRewards = false
+
+Section3:Toggle({
+    Title = "Dupe Rewards",
+    Description = "Dupe Season Pass Belohnung",
+    Default = false
+}, function(toggle)
+    _G.DupeSeasonRewards = toggle
+
+    if toggle then
+        spawn(function()
+            while _G.DupeSeasonRewards do
+                local success, err = pcall(function()
+                    local remote = game:GetService("ReplicatedStorage")
+                        :WaitForChild("Remote")
+                        :WaitForChild("Event")
+                        :WaitForChild("SeasonPass")
+                        :WaitForChild("[C-S]TryGetReward")
+
+                    local args = {
+                        [1] = "1",                 -- fest
+                        [2] = SeasonRewardID       -- von Textbox einstellbar
+                    }
+
+                    remote:FireServer(unpack(args))
+                end)
+
+                if not success then
+                    warn("❌ Error:", err)
+                end
+
+                wait(0.1)
+            end
+        end)
+    end
+end)
+
+Section3:Textbox({
+    Title = "Reward ID",
+    Description = "Number from 1 to 15",
+    Default = "1",
+}, function(value)
+    local num = tonumber(value)
+    if num and num >= 1 and num <= 15 then
+        SeasonRewardID = num
+        print("✅ Season Reward ID set to:", SeasonRewardID)
+    else
+        warn("❌ Invalid input! Please enter a number from 1 to 15.")
+    end
+end)
+
+local Section3 = SubButtonDupe3:Section("Premium Pass Dupe", "Left")
+local SeasonRewardID = 1
+local _G = _G or {}
+_G.DupeSeasonRewards = false
+
+Section3:Toggle({
+    Title = "Dupe Rewards",
+    Description = "Premium Pass required",
+    Default = false
+}, function(toggle)
+    _G.DupeSeasonRewards = toggle
+
+    if toggle then
+        spawn(function()
+            while _G.DupeSeasonRewards do
+                local success, err = pcall(function()
+                    local remote = game:GetService("ReplicatedStorage")
+                        :WaitForChild("Remote")
+                        :WaitForChild("Event")
+                        :WaitForChild("SeasonPass")
+                        :WaitForChild("[C-S]TryGetReward")
+
+                    local args = {
+                        [1] = "2",                 -- fest
+                        [2] = SeasonRewardID       -- von Textbox einstellbar
+                    }
+
+                    remote:FireServer(unpack(args))
+                end)
+
+                if not success then
+                    warn("❌ Error:", err)
+                end
+
+                wait(0.1)
+            end
+        end)
+    end
+end)
+
+Section3:Textbox({
+    Title = "Reward ID",
+    Description = "Number from 1 to 15",
+    Default = "1",
+}, function(value)
+    local num = tonumber(value)
+    if num and num >= 1 and num <= 15 then
+        SeasonRewardID = num
+        print("✅ Season Reward ID set to:", SeasonRewardID)
+    else
+        warn("❌ Ungültige Eingabe! Nur Zahlen von 1 bis 15 erlaubt.")
+    end
+end)
+
