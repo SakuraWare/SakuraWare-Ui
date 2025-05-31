@@ -5,7 +5,6 @@ local Window = UILib.new(game:GetService("MarketplaceService"):GetProductInfo(ga
 -- Kategorie: Farming
 local Category1 = Window:Category("Farming", "http://www.roblox.com/asset/?id=8395621517")
 local SubButton1 = Category1:Button("Auto Farm", "http://www.roblox.com/asset/?id=8395747586")
-local SubButton2 = Category1:Button("Auto Hatch", "http://www.roblox.com/asset/?id=8395747586")
 
 -- Abschnitt: Auto Train
 local SectionTrain = SubButton1:Section("Auto Train", "Left")
@@ -59,12 +58,87 @@ SectionMoney:Toggle({
     end
 end)
 
+local SubButton2 = Category1:Button("Worlds", "http://www.roblox.com/asset/?id=8395747586")
+local Section1 = SubButton2:Section("Worlds", "Left")
 
+Section1:Button({
+    Title = "World 1",
+    ButtonName = "Teleport",
+    Description = "Teleport to World 1",
+}, function()
+    game:GetService("ReplicatedStorage")
+        :WaitForChild("Remote")
+        :WaitForChild("Event")
+        :WaitForChild("Game")
+        :WaitForChild("[C-S]PlayerChangeWorld")
+        :FireServer(1)
+end)
 
+Section1:Button({
+    Title = "World 2",
+    ButtonName = "Teleport",
+    Description = "Teleport to World 2",
+}, function()
+    game:GetService("ReplicatedStorage")
+        :WaitForChild("Remote")
+        :WaitForChild("Event")
+        :WaitForChild("Game")
+        :WaitForChild("[C-S]PlayerChangeWorld")
+        :FireServer(2)
+end)
 
+Section1:Button({
+    Title = "World 3",
+    ButtonName = "Teleport",
+    Description = "Teleport to World 3",
+}, function()
+    game:GetService("ReplicatedStorage")
+        :WaitForChild("Remote")
+        :WaitForChild("Event")
+        :WaitForChild("Game")
+        :WaitForChild("[C-S]PlayerChangeWorld")
+        :FireServer(3)
+end)
 
+Section1:Button({
+    Title = "World 4",
+    ButtonName = "Teleport",
+    Description = "Teleport to World 4",
+}, function()
+    game:GetService("ReplicatedStorage")
+        :WaitForChild("Remote")
+        :WaitForChild("Event")
+        :WaitForChild("Game")
+        :WaitForChild("[C-S]PlayerChangeWorld")
+        :FireServer(4)
+end)
 
+Section1:Button({
+    Title = "World 5",
+    ButtonName = "Teleport",
+    Description = "Teleport to World 5",
+}, function()
+    game:GetService("ReplicatedStorage")
+        :WaitForChild("Remote")
+        :WaitForChild("Event")
+        :WaitForChild("Game")
+        :WaitForChild("[C-S]PlayerChangeWorld")
+        :FireServer(5)
+end)
 
+local Section2 = SubButton2:Section("Event", "Left")
+Section2:Button({
+    Title = "Event World",
+    ButtonName = "Teleport",
+    Description = "Teleport to Event",
+}, function()
+    game:GetService("ReplicatedStorage")
+        :WaitForChild("Remote")
+        :WaitForChild("Event")
+        :WaitForChild("Game")
+        :WaitForChild("[C-S]PlayerChangeWorld")
+        :FireServer(-1)
+end)
 
 -- Kategorie: Dupe Rewards
 local Category2 = Window:Category("Dupe Rewards", "http://www.roblox.com/asset/?id=8395621517")
@@ -80,7 +154,7 @@ local _G = _G or {}
 _G.DupeItems = false
 
 Section1:Toggle({
-    Title = "Dupe Items",
+    Title = "Dupe Rewards",
     Description = "Dupe Forever Pack",
     Default = false
 }, function(toggle)
@@ -110,7 +184,7 @@ Section1:Toggle({
 end)
 
 Section1:Textbox({
-    Title = "Item ID",
+    Title = "Reward ID",
     Description = "Number from 1 to 200",
     Default = "1",
 }, function(value)
@@ -340,5 +414,40 @@ Section3:Textbox({
 end)
 
 local Category3 = Window:Category("Settings", "http://www.roblox.com/asset/?id=8395621517")
+local SubButton1 = Category3:Button("Player Settings", "http://www.roblox.com/asset/?id=8395747586")
+local Section1 = SubButton1:Section("Player Settings", "Left")
 
+Section1:Slider({
+    Title = "Walkspeed",
+    Description = "Change your Walkspeed",
+    Default = 16,
+    Min = 16,
+    Max = 120
+}, function(value)
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("Humanoid") then
+        player.Character.Humanoid.WalkSpeed = value
+    end
+end)
 
+Section1:Slider({
+    Title = "JumpPower",
+    Description = "Change your JumpPower",
+    Default = 50,
+    Min = 50,
+    Max = 300
+}, function(value)
+    local player = game.Players.LocalPlayer
+    if player and player.Character and player.Character:FindFirstChild("Humanoid") then
+        player.Character.Humanoid.JumpPower = value
+    end
+end)
+
+local Section2 = SubButton1:Section("Infinite Yield", "Left")
+
+Section2:Button({
+    ButtonName = "Infinite Yield",
+    Description = "Universal Admin",
+    }, function(value)
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+end)
